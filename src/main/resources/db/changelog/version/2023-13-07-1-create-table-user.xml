@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="2023-13-07-1-create-table-user" author="semenov-ao">
+        <createTable tableName="client" schemaName="public">
+            <column name="id" type="serial">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(128)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="shortname" type="varchar(128)"/>
+            <column name="legal_form" type="integer"/>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="client"
+                                 baseColumnNames="legal_form"
+                                 constraintName="organizational_legal_form_fk"
+                                 referencedTableName="organizational_legal_form"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+</databaseChangeLog>

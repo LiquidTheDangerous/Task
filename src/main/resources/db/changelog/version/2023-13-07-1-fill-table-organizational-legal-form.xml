@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="0" author="admin">
+        <insert tableName="organizational_legal_form" schemaName="public">
+            <column name="name" value="Хозяйственное товарищество"/>
+            <column name="short_name" value="ХТ"/>
+        </insert>
+        <insert tableName="organizational_legal_form">
+            <column name="name" value="Полное товарищество"/>
+            <column name="short_name" value="ПТ"/>
+        </insert>
+        <insert tableName="organizational_legal_form">
+            <column name="name" value="Товарищество на вере"/>
+            <column name="short_name" value="ТНВ"/>
+        </insert>
+        <insert tableName="organizational_legal_form">
+            <column name="name" value="Хозяйственное общество"/>
+            <column name="short_name" value="ХО"/>
+        </insert>
+        <insert tableName="organizational_legal_form">
+            <column name="name" value="Общество с ограниченной ответственностью"/>
+            <column name="short_name" value="ООО"/>
+        </insert>
+        <insert tableName="organizational_legal_form">
+            <column name="name" value="Непубличное акционерное общество"/>
+            <column name="short_name" value="АО"/>
+        </insert>
+        <insert tableName="organizational_legal_form">
+            <column name="name" value="Производственный кооператив"/>
+            <column name="short_name" value="ПрК"/>
+        </insert>
+        <insert tableName="organizational_legal_form">
+            <column name="name" value="Крестьянское (фермерское) хозяйство"/>
+            <column name="short_name" value="КФХ"/>
+        </insert>
+        <insert tableName="organizational_legal_form">
+            <column name="name" value="Хозяйственное партнёрство"/>
+            <column name="short_name" value="ХП"/>
+        </insert>
+        <insert tableName="organizational_legal_form">
+            <column name="name" value="Унитарное предприятие"/>
+            <column name="short_name" value="УП"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

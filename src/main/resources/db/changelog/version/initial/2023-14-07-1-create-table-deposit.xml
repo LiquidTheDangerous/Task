@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="2023-14-07-1-create-table-deposit" author="semenov-ao">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="deposit"/>
+            </not>
+        </preConditions>
+        <createTable tableName="deposit">
+            <column name="id" type="serial">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="open_date" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="percent" type="decimal">
+                <constraints nullable="false"/>
+            </column>
+            <column name="time_period" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="bank_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="client_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="deposit"
+                                 baseColumnNames="client_id"
+                                 constraintName="deposit_client_fk"
+                                 referencedTableName="client"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="deposit"
+                                 baseColumnNames="bank_id"
+                                 constraintName="deposit_bank_fk"
+                                 referencedTableName="bank"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+</databaseChangeLog>

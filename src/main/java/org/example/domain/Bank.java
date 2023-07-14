@@ -1,12 +1,11 @@
 package org.example.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.Set;
 
 @Entity
 @Table(name="bank")
@@ -23,4 +22,7 @@ public class Bank {
 
     @Column(name="bik_code")
     private Long bikCode;
+
+    @OneToMany(mappedBy = "bank",fetch = FetchType.LAZY)
+    private Set<Deposit> deposits;
 }

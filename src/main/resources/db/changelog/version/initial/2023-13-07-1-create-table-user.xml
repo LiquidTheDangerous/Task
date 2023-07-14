@@ -5,6 +5,11 @@
                    https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
 
     <changeSet id="2023-13-07-1-create-table-user" author="semenov-ao">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="client"/>
+            </not>
+        </preConditions>
         <createTable tableName="client" schemaName="public">
             <column name="id" type="serial">
                 <constraints nullable="false" primaryKey="true"/>

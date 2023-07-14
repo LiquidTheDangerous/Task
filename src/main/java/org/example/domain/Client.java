@@ -5,6 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+import java.util.Set;
+
 @Entity
 @Table(name="client", schema = "public")
 @NoArgsConstructor
@@ -22,8 +25,10 @@ public class Client {
     private String nickname;
 
     @OneToOne
-    @JoinColumn(name="legal_form", referencedColumnName = "id")
-    OrganizationalLegalForm organizationalLegalForm;
+    private OrganizationalLegalForm organizationalLegalForm;
+
+    @OneToMany(mappedBy = "client",fetch = FetchType.LAZY)
+    private Set<Deposit> deposits;
 
 
 }

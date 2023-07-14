@@ -4,8 +4,9 @@
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
-    <include file="version/2023-13-07-1-create-table-organizational_legal_form.xml" relativeToChangelogFile="true"/>
-    <include file="version/2023-13-07-1-create-table-user.xml" relativeToChangelogFile="true"/>
-    <include file="version/2023-13-07-1-fill-table-organizational-legal-form.xml" relativeToChangelogFile="true"/>
-    <include file="version/2023-13-07-1-create-table-bank.xml" relativeToChangelogFile="true"/>
+    <include file="version/initial/2023-13-07-1-create-table-organizational_legal_form.xml" relativeToChangelogFile="true"/>
+    <include file="version/initial/2023-13-07-1-create-table-user.xml" relativeToChangelogFile="true"/>
+    <include file="version/initial/2023-13-07-1-fill-table-organizational-legal-form.xml" relativeToChangelogFile="true"/>
+    <include file="version/initial/2023-13-07-1-create-table-bank.xml" relativeToChangelogFile="true"/>
+    <include file="version/initial/2023-14-07-1-create-table-deposit.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>

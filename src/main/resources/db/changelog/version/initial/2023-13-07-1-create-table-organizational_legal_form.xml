@@ -4,7 +4,12 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                    https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
 
-    <changeSet id="2023-13-07-1-create-table-organizational_legal_form"  author="admin">
+    <changeSet id="2023-13-07-1-create-table-organizational_legal_form"  author="semenov-ao">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="organizational_legal_form"/>
+            </not>
+        </preConditions>
         <createTable tableName="organizational_legal_form" schemaName="public">
             <column name="id" type="serial">
                 <constraints primaryKey="true" nullable="false"/>

@@ -4,7 +4,6 @@ import org.example.domain.Client;
 import org.example.domain.Deposit;
 import org.example.service.ClientService;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

@@ -24,7 +24,8 @@ public class Client {
     @Column(name="shortname")
     private String nickname;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="legal_form")
     private OrganizationalLegalForm organizationalLegalForm;
 
     @OneToMany(mappedBy = "client",fetch = FetchType.LAZY)

@@ -25,6 +25,7 @@ public class ClientController {
         return ResponseEntity.ok().body(clientService.getAll());
     }
 
+
     @DeleteMapping("deleteById/{clientId}")
     ResponseEntity<Map<String, Boolean>> deleteById(@PathVariable("clientId") Long clientId) {
         try {
@@ -39,8 +40,8 @@ public class ClientController {
                 .body(Collections.singletonMap("delete", Boolean.TRUE));
     }
 
-    @PostMapping("createClient")
-    ResponseEntity<Map<String, Boolean>> createClient(@RequestBody Client client) {
+    @PostMapping("create")
+    ResponseEntity<Map<String, Boolean>> create(@RequestBody Client client) {
         try {
             clientService.save(client);
         } catch (Exception exception) {
@@ -53,8 +54,8 @@ public class ClientController {
                 .body(Collections.singletonMap("create", Boolean.TRUE));
     }
 
-    @PutMapping("updateClient")
-    ResponseEntity<Map<String,Boolean>> updateClient(@RequestBody Client client) {
+    @PutMapping("update")
+    ResponseEntity<Map<String,Boolean>> update(@RequestBody Client client) {
         try {
             clientService.update(client);
         } catch (Exception exception) {
@@ -67,8 +68,8 @@ public class ClientController {
                 .body(Collections.singletonMap("update",Boolean.TRUE));
     }
 
-    @GetMapping("getClientDepositByClientId/{clientId}")
-    ResponseEntity<Set<Deposit>> getClientDepositByClientId(@PathVariable("clientId") Long clientId) {
+    @GetMapping("getDepositByClientId/{clientId}")
+    ResponseEntity<Set<Deposit>> getDepositByClientId(@PathVariable("clientId") Long clientId) {
         return ResponseEntity
                 .ok()
                 .body(clientService.getClientDepositByClientId(clientId));

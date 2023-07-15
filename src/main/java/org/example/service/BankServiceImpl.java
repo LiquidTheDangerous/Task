@@ -3,7 +3,6 @@ package org.example.service;
 import jakarta.transaction.Transactional;
 import org.example.domain.Bank;
 import org.example.domain.Deposit;
-import org.example.exceptions.ResourceAlreadyExistsException;
 import org.example.exceptions.ResourceNotFoundException;
 import org.example.repository.BankRepository;
 import org.example.repository.DepositRepository;
@@ -40,11 +39,9 @@ public class BankServiceImpl implements BankService {
 
     @Override
     @Transactional
-    public void save(Bank bank) {
-        if (bankRepository.existsById(bank.getId())) {
-            throw new ResourceAlreadyExistsException();
-        }
-        bankRepository.save(bank);
+    public Bank save(Bank bank) {
+        bank.setId(null);
+        return bankRepository.save(bank);
     }
 
     @Override

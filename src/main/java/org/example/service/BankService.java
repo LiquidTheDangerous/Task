@@ -15,7 +15,7 @@ public interface BankService {
 
     List<Deposit> getBankDepositByBankId(Long bankId);
 
-    void save(Bank bank);
+    Bank save(Bank bank);
 
     void update(Bank bank);
 

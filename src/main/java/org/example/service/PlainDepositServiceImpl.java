@@ -2,7 +2,6 @@ package org.example.service;
 
 import jakarta.transaction.Transactional;
 import org.example.domain.PlainDeposit;
-import org.example.exceptions.ResourceAlreadyExistsException;
 import org.example.exceptions.ResourceNotFoundException;
 import org.example.repository.PlainDepositRepository;
 import org.springframework.stereotype.Service;
@@ -30,11 +29,9 @@ public class PlainDepositServiceImpl implements PlainDepositService {
 
     @Override
     @Transactional
-    public void save(PlainDeposit plainDeposit) {
-        if (plainDepositRepository.existsById(plainDeposit.getId())) {
-            throw new ResourceAlreadyExistsException();
-        }
-        plainDepositRepository.save(plainDeposit);
+    public PlainDeposit save(PlainDeposit plainDeposit) {
+        plainDeposit.setId(null);
+        return plainDepositRepository.save(plainDeposit);
     }
 
 
@@ -45,7 +42,6 @@ public class PlainDepositServiceImpl implements PlainDepositService {
             throw new ResourceNotFoundException();
         }
         plainDepositRepository.save(plainDeposit);
-
     }
 
     @Override

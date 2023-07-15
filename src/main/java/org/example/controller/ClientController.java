@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 @RestController
 @RequestMapping("api/user/")
@@ -42,17 +41,8 @@ public class ClientController {
     }
 
     @PostMapping("create")
-    ResponseEntity<Map<String, Boolean>> create(@RequestBody Client client) {
-        try {
-            clientService.save(client);
-        } catch (Exception exception) {
-            return ResponseEntity
-                    .badRequest()
-                    .body(Collections.singletonMap("create", Boolean.FALSE));
-        }
-        return ResponseEntity
-                .ok()
-                .body(Collections.singletonMap("create", Boolean.TRUE));
+    ResponseEntity<Client> create(@RequestBody Client client) {
+        return ResponseEntity.ok().body(clientService.save(client));
     }
 
     @PutMapping("update")

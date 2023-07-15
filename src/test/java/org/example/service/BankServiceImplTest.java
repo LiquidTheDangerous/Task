@@ -2,7 +2,6 @@ package org.example.service;
 
 import org.example.domain.Bank;
 import org.example.domain.Deposit;
-import org.example.exceptions.ResourceAlreadyExistsException;
 import org.example.exceptions.ResourceNotFoundException;
 import org.example.repository.BankRepository;
 import org.example.repository.DepositRepository;
@@ -55,18 +54,11 @@ public class BankServiceImplTest {
     }
 
     @Test
-    public void BankServiceImpl_save_throwsResourceAlreadyExistsException_whenBankAlreadyExists() {
-        when(bankRepository.existsById(Mockito.any())).thenReturn(true);
-        assertThrows(ResourceAlreadyExistsException.class, () -> bankService.save(new Bank()));
-    }
-
-    @Test
     public void BankServiceImpl_save_AssertThatServiceSaveBank() {
-        doAnswer(invocation -> false).when(bankRepository).existsById(any());
-        var bank = Bank.builder().id(1L).build();
+        var bank = new Bank();
         doAnswer(invocation -> {
             var bankToSave = (Bank) invocation.getArgument(0);
-            assertEquals(bank.getId(), bankToSave.getId());
+            assertSame(bank, bankToSave);
             return bankToSave;
         })
                 .when(bankRepository)

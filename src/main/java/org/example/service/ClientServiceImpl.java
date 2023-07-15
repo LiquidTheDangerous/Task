@@ -1,14 +1,11 @@
 package org.example.service;
 
-import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import org.example.domain.Client;
 import org.example.domain.Deposit;
-import org.example.exceptions.ResourceAlreadyExistsException;
 import org.example.exceptions.ResourceNotFoundException;
 import org.example.repository.ClientRepository;
 import org.example.repository.DepositRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -43,11 +40,9 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     @Transactional
-    public void save(Client client) {
-        if (clientRepository.existsById(client.getId())) {
-            throw new ResourceAlreadyExistsException();
-        }
-        clientRepository.save(client);
+    public Client save(Client client) {
+        client.setId(null);
+        return clientRepository.save(client);
     }
 
     @Override

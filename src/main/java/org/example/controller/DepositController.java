@@ -27,17 +27,8 @@ public class DepositController {
     }
 
     @PostMapping("create")
-    ResponseEntity<Map<String, Boolean>> create(@RequestBody PlainDeposit plainDeposit) {
-        try {
-            plainDepositService.save(plainDeposit);
-        } catch (Exception exception) {
-            return ResponseEntity
-                    .badRequest()
-                    .body(Collections.singletonMap("create", Boolean.FALSE));
-        }
-        return ResponseEntity
-                .ok()
-                .body(Collections.singletonMap("create", Boolean.TRUE));
+    ResponseEntity<PlainDeposit> create(@RequestBody PlainDeposit plainDeposit) {
+        return ResponseEntity.ok().body(plainDepositService.save(plainDeposit));
     }
 
     @PutMapping("update")

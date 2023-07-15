@@ -9,8 +9,8 @@ import org.example.repository.BankRepository;
 import org.example.repository.DepositRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @Service
 public class BankServiceImpl implements BankService {
@@ -34,7 +34,7 @@ public class BankServiceImpl implements BankService {
     }
 
     @Override
-    public Set<Deposit> getBankDepositByBankId(Long bankId) {
+    public List<Deposit> getBankDepositByBankId(Long bankId) {
         return depositRepository.getAllByBankId(bankId);
     }
 

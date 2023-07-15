@@ -4,8 +4,8 @@ import org.example.domain.Client;
 import org.example.domain.Deposit;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @Service
 public interface ClientService {
@@ -13,7 +13,7 @@ public interface ClientService {
 
     Optional<Client> getClientById(Long id);
 
-    Set<Deposit> getClientDepositByClientId(Long id);
+    List<Deposit> getClientDepositByClientId(Long id);
 
     void save(Client client);
 

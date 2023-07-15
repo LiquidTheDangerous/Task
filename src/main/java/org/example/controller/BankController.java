@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -30,7 +31,7 @@ public class BankController {
     }
 
     @GetMapping("getDepositByBankId/{bankId}")
-    ResponseEntity<Set<Deposit>> getDepositByBankId(@PathVariable("bankId") Long bankId) {
+    ResponseEntity<List<Deposit>> getDepositByBankId(@PathVariable("bankId") Long bankId) {
         return ResponseEntity
                 .ok()
                 .body(bankService.getBankDepositByBankId(bankId));

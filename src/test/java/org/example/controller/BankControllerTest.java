@@ -34,7 +34,7 @@ public class BankControllerTest {
     private final Bank testBank;
 
     public BankControllerTest() {
-        testBank = new Bank(1L,"Open",123456789L,null);
+        testBank = new Bank(null,"Open",123456789L,null);
     }
 
     @Test

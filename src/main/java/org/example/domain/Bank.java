@@ -5,16 +5,17 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Set;
+import java.util.List;
 
 @Entity
-@Table(name="bank")
+@Table(name="bank",schema = "public")
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 public class Bank {
     @Id
     @Column(name="id")
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
     @Column(name="name")
@@ -24,5 +25,5 @@ public class Bank {
     private Long bikCode;
 
     @OneToMany(mappedBy = "bank",fetch = FetchType.LAZY)
-    private Set<Deposit> deposits;
+    private List<Deposit> deposits;
 }

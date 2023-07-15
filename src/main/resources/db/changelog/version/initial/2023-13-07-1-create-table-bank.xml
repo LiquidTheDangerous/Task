@@ -12,7 +12,7 @@
         </preConditions>
         <createTable tableName="bank">
             <column name="id" type="serial">
-                <constraints primaryKey="true"/>
+                <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="name" type="varchar(128)"/>
             <column name="bik_code" type="integer"/>

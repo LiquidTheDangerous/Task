@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -69,7 +70,7 @@ public class ClientController {
     }
 
     @GetMapping("getDepositByClientId/{clientId}")
-    ResponseEntity<Set<Deposit>> getDepositByClientId(@PathVariable("clientId") Long clientId) {
+    ResponseEntity<List<Deposit>> getDepositByClientId(@PathVariable("clientId") Long clientId) {
         return ResponseEntity
                 .ok()
                 .body(clientService.getClientDepositByClientId(clientId));

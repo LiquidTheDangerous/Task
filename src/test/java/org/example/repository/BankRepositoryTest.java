@@ -10,7 +10,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@DataJpaTest()
+@DataJpaTest
 @AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
 public class BankRepositoryTest {
     @Autowired
@@ -19,9 +19,9 @@ public class BankRepositoryTest {
     @Test
     public void BankRepository_getFirstByName_ReturnsFirstByName() {
         var bankFist
-                = new Bank(1L, "Bank1", 123456789L, null);
+                = new Bank(null, "Bank1", 123456789L, null);
         var bankSecond
-                = new Bank(2L, "Bank2", 123456789L, null);
+                = new Bank(null, "Bank2", 123456789L, null);
         bankRepository.save(bankFist);
         bankRepository.save(bankSecond);
         var result = bankRepository.getFirstByName("Bank1");

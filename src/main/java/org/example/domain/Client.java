@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -16,6 +17,7 @@ import java.util.Set;
 public class Client {
     @Id
     @Column(name="id")
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
     @Column(name="name")
@@ -28,8 +30,6 @@ public class Client {
     @JoinColumn(name="legal_form")
     private OrganizationalLegalForm organizationalLegalForm;
 
-    @OneToMany(mappedBy = "client",fetch = FetchType.LAZY)
-    private Set<Deposit> deposits;
-
-
+    @OneToMany(mappedBy = "client", fetch = FetchType.LAZY)
+    private List<Deposit> deposits;
 }

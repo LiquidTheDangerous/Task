@@ -15,7 +15,7 @@
                 <constraints nullable="false" primaryKey="true"/>
             </column>
             <column name="name" type="varchar(128)">
-                <constraints nullable="false"/>
+                <constraints nullable="false" unique="true"/>
             </column>
             <column name="shortname" type="varchar(128)"/>
             <column name="organizational_legal_form_id" type="integer"/>

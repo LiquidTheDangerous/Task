@@ -20,10 +20,10 @@ public class Bank {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name="name", nullable = false)
+    @Column(name="name", nullable = false, unique = true)
     private String name;
 
-    @Column(name="bik_code", nullable = false)
+    @Column(name="bik_code", nullable = false, unique = true)
     private Long bikCode;
 
     @OneToMany(mappedBy = "bank",fetch = FetchType.LAZY)

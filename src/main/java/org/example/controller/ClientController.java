@@ -26,7 +26,7 @@ public class ClientController {
                 .body(
                         ApiBody.<Iterable<Client>>builder()
                                 .body(clientService.getAll(pageNumber, pageSize))
-                                .actionResult(new ActionResult("read", true))
+                                .actionResult(new ActionResultMessage("read", true))
                                 .build()
                 );
     }
@@ -38,7 +38,7 @@ public class ClientController {
                 .body(
                         ApiBody.<Client>builder()
                                 .body(clientService.getClientById(id))
-                                .actionResult(new ActionResult("read", true))
+                                .actionResult(new ActionResultMessage("read", true))
                                 .build()
                 );
     }
@@ -48,17 +48,17 @@ public class ClientController {
         return ResponseEntity.ok().body(
                 ApiBody.<Client>builder()
                         .body(clientService.getClientByName(name))
-                        .actionResult(new ActionResult("read", true))
+                        .actionResult(new ActionResultMessage("read", true))
                         .build()
         );
     }
 
     @DeleteMapping("deleteById/{clientId}")
-    ResponseEntity<ActionResult> deleteById(@PathVariable("clientId") Long clientId) {
+    ResponseEntity<ActionResultMessage> deleteById(@PathVariable("clientId") Long clientId) {
         clientService.deleteById(clientId);
         return ResponseEntity
                 .ok()
-                .body(new ActionResult("delete", true));
+                .body(new ActionResultMessage("delete", true));
     }
 
     @PostMapping("create")
@@ -66,17 +66,17 @@ public class ClientController {
         return ResponseEntity.ok().body(
                 ApiBody.<Client>builder()
                         .body(clientService.save(client))
-                        .actionResult(new ActionResult("create", true))
+                        .actionResult(new ActionResultMessage("create", true))
                         .build()
         );
     }
 
     @PutMapping("update")
-    ResponseEntity<ActionResult> update(@RequestBody Client client) {
+    ResponseEntity<ActionResultMessage> update(@RequestBody Client client) {
         clientService.update(client);
         return ResponseEntity
                 .ok()
-                .body(new ActionResult("update", true));
+                .body(new ActionResultMessage("update", true));
     }
 
     @GetMapping("getDepositByClientId/{clientId}")
@@ -86,7 +86,7 @@ public class ClientController {
                 .body(
                         ApiBody.<List<Deposit>>builder()
                                 .body(clientService.getClientDepositByClientId(clientId))
-                                .actionResult(new ActionResult("read", true))
+                                .actionResult(new ActionResultMessage("read", true))
                                 .build()
                 );
     }

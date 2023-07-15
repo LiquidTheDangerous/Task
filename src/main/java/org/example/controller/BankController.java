@@ -26,7 +26,7 @@ public class BankController {
                 .body(ApiBody.<Iterable<Bank>>builder()
                         .body(bankService.getAll(pageNumber, pageSize))
                         .actionResult(
-                                new ActionResult("read", true))
+                                new ActionResultMessage("read", true))
                         .build()
                 );
     }
@@ -36,7 +36,7 @@ public class BankController {
         return ResponseEntity.ok().body(
                 ApiBody.<Bank>builder()
                         .body(bankService.getBankById(id))
-                        .actionResult(new ActionResult("read", true))
+                        .actionResult(new ActionResultMessage("read", true))
                         .build()
         );
     }
@@ -48,7 +48,7 @@ public class BankController {
                 .body(
                 ApiBody.<Bank>builder()
                         .body(bankService.getBankByName(name))
-                        .actionResult(new ActionResult("read", true))
+                        .actionResult(new ActionResultMessage("read", true))
                         .build()
         );
     }
@@ -59,7 +59,7 @@ public class BankController {
                 .ok()
                 .body(
                 ApiBody.<Bank>builder().body(bankService.getBankByBikCode(bikCode))
-                        .actionResult(new ActionResult("read", true))
+                        .actionResult(new ActionResultMessage("read", true))
                         .build());
     }
 
@@ -70,15 +70,15 @@ public class BankController {
                 .body(
                         ApiBody.<List<Deposit>>builder()
                                 .body(bankService.getBankDepositByBankId(bankId))
-                                .actionResult(new ActionResult("read", true))
+                                .actionResult(new ActionResultMessage("read", true))
                                 .build()
                 );
     }
 
     @DeleteMapping("deleteById/{bankId}")
-    ResponseEntity<ActionResult> deleteById(@PathVariable("bankId") Long bankId) {
+    ResponseEntity<ActionResultMessage> deleteById(@PathVariable("bankId") Long bankId) {
         bankService.deleteById(bankId);
-        return ResponseEntity.ok().body(new ActionResult("delete", true));
+        return ResponseEntity.ok().body(new ActionResultMessage("delete", true));
     }
 
     @PostMapping("create")
@@ -86,14 +86,14 @@ public class BankController {
         return ResponseEntity.ok().body(
                 ApiBody.<Bank>builder()
                         .body(bankService.save(bank))
-                        .actionResult(new ActionResult("create", true))
+                        .actionResult(new ActionResultMessage("create", true))
                         .build()
         );
     }
 
     @PutMapping("update")
-    ResponseEntity<ActionResult> update(@RequestBody Bank bank) {
+    ResponseEntity<ActionResultMessage> update(@RequestBody Bank bank) {
         bankService.update(bank);
-        return ResponseEntity.ok().body(new ActionResult("update", true));
+        return ResponseEntity.ok().body(new ActionResultMessage("update", true));
     }
 }

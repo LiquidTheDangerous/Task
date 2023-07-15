@@ -23,7 +23,7 @@ public class OrganizationalLegalFormController {
         return
                 ApiBody.<List<OrganizationalLegalForm>>builder()
                         .body(organizationalLegalFormService.getAll())
-                        .actionResult(new ActionResult("read", true))
+                        .actionResult(new ActionResultMessage("read", true))
                         .build();
     }
 }

@@ -54,7 +54,7 @@ public class BankControllerTest {
                                 ApiBody.<Bank>builder()
                                         .body(testBank)
                                         .actionResult(
-                                                new ActionResult("create", true))
+                                                new ActionResultMessage("create", true))
                                         .build())));
     }
 

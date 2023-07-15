@@ -17,7 +17,7 @@ public class ResourceNotFoundExceptionHandler extends ResponseEntityExceptionHan
 
         return new ResponseEntity<>(
                 new ErrorBody(
-                        new ActionResult(action, false),
+                        new ActionResultMessage(action, false),
                         message
                 ),
                 HttpStatus.NOT_FOUND);

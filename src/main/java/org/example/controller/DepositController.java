@@ -17,32 +17,55 @@ public class DepositController {
     }
 
     @GetMapping("getAll")
-    ResponseEntity<Iterable<PlainDeposit>> getAll(@RequestParam(name = "pageNumber", defaultValue = "0", required = false) Integer pageNumber,
-                                                  @RequestParam(name = "pageSize", defaultValue = "25", required = false) Integer pageSize) {
+    ResponseEntity<ApiBody<Iterable<PlainDeposit>>> getAll(@RequestParam(name = "pageNumber", defaultValue = "0", required = false) Integer pageNumber,
+                                                           @RequestParam(name = "pageSize", defaultValue = "25", required = false) Integer pageSize) {
         return ResponseEntity.
                 ok()
-                .body(plainDepositService.getAll(pageNumber, pageSize));
+                .body(
+                        ApiBody.<Iterable<PlainDeposit>>builder()
+                                .body(plainDepositService.getAll(pageNumber, pageSize))
+                                .actionResult(new ActionResultMessage("read", true))
+                                .build()
+                );
     }
 
     @GetMapping("getById/{id}")
-    ResponseEntity<PlainDeposit> getById(@PathVariable("id") Long id) {
-        return ResponseEntity.ok().body(plainDepositService.getDepositById(id));
+    ResponseEntity<ApiBody<PlainDeposit>> getById(@PathVariable("id") Long id) {
+        return ResponseEntity
+                .ok()
+                .body(
+                        ApiBody.<PlainDeposit>builder()
+                                .body(plainDepositService.getDepositById(id))
+                                .actionResult(new ActionResultMessage("read", true))
+                                .build()
+                );
     }
 
     @PostMapping("create")
-    ResponseEntity<PlainDeposit> create(@RequestBody PlainDeposit plainDeposit) {
-        return ResponseEntity.ok().body(plainDepositService.save(plainDeposit));
+    ResponseEntity<ApiBody<PlainDeposit>> create(@RequestBody PlainDeposit plainDeposit) {
+        return ResponseEntity
+                .ok()
+                .body(
+                        ApiBody.<PlainDeposit>builder()
+                                .body(plainDepositService.save(plainDeposit))
+                                .actionResult(new ActionResultMessage("create", true))
+                                .build()
+                );
     }
 
     @PutMapping("update")
-    ResponseEntity<ActionResult> update(@RequestBody PlainDeposit plainDeposit) {
+    ResponseEntity<ActionResultMessage> update(@RequestBody PlainDeposit plainDeposit) {
         plainDepositService.update(plainDeposit);
-        return ResponseEntity.ok().body(new ActionResult("update", true));
+        return ResponseEntity
+                .ok()
+                .body(new ActionResultMessage("update", true));
     }
 
     @DeleteMapping("deleteById/{depositId}")
-    ResponseEntity<ActionResult> deleteById(@PathVariable("depositId") Long depositId) {
+    ResponseEntity<ActionResultMessage> deleteById(@PathVariable("depositId") Long depositId) {
         plainDepositService.deleteById(depositId);
-        return ResponseEntity.ok().body(new ActionResult("delete", true));
+        return ResponseEntity
+                .ok()
+                .body(new ActionResultMessage("delete", true));
     }
 }

@@ -5,7 +5,7 @@ import lombok.Data;
 
 @AllArgsConstructor
 @Data
-public class ActionResult {
+public class ActionResultMessage {
     private String action;
 
     private boolean result;

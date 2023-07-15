@@ -9,6 +9,6 @@ import lombok.Data;
 @Data
 public class ApiBody<T>{
 
-    ActionResult actionResult;
+    ActionResultMessage actionResult;
     T body;
 }

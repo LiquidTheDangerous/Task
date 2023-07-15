@@ -6,6 +6,6 @@ import lombok.Data;
 @AllArgsConstructor
 @Data
 public class ErrorBody {
-    private ActionResult actionResult;
+    private ActionResultMessage actionResult;
     private String message;
 }

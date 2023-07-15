@@ -15,7 +15,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import java.util.Collections;
+
+import static org.mockito.Mockito.doAnswer;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 @WebMvcTest(controllers = BankController.class)
@@ -31,25 +32,22 @@ public class BankControllerTest {
     @Autowired
     private ObjectMapper objectMapper;
 
-    private final Bank testBank;
 
     public BankControllerTest() {
-        testBank = new Bank(null,"Open",123456789L,null);
+
     }
 
     @Test
     public void BankController_Create_ReturnCreated() throws Exception{
+        var testBank = new Bank(null,"Open",123456789L,null);
+
+        doAnswer(invocation->invocation.getArgument(0)).when(bankService).save(testBank);
         ResultActions response = mockMvc
                 .perform(post("/api/bank/create")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(testBank)));
-
         response.andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content()
-                        .json(objectMapper
-                                .writeValueAsString(Collections
-                                        .singletonMap("create",Boolean.TRUE))));
-
+                .andExpect(MockMvcResultMatchers.content().json(objectMapper.writeValueAsString(testBank)));
     }
 
 }

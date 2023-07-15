@@ -49,7 +49,7 @@ public class ClientServiceImpl implements ClientService {
     @Transactional
     public void update(Client client) {
         if (!clientRepository.existsById(client.getId())) {
-            throw new ResourceNotFoundException();
+            throw new ResourceNotFoundException("no user to update", "update");
         }
         clientRepository.save(client);
     }
@@ -58,7 +58,7 @@ public class ClientServiceImpl implements ClientService {
     @Transactional
     public void deleteById(Long clientId) {
         if (!clientRepository.existsById(clientId)) {
-            throw new ResourceNotFoundException();
+            throw new ResourceNotFoundException("no user to delete", "delete");
         }
         clientRepository.deleteById(clientId);
     }

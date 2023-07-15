@@ -1,13 +1,10 @@
 package org.example.controller;
 
 import org.example.domain.PlainDeposit;
-import org.example.exceptions.ResourceNotFoundException;
 import org.example.service.PlainDepositService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
-import java.util.Map;
 
 @RestController
 @RequestMapping("api/deposit")
@@ -32,30 +29,14 @@ public class DepositController {
     }
 
     @PutMapping("update")
-    ResponseEntity<Map<String,Boolean>> update(@RequestBody PlainDeposit plainDeposit) {
-        try {
-            plainDepositService.update(plainDeposit);
-        } catch (Exception exception) {
-            return ResponseEntity
-                    .badRequest()
-                    .body(Collections.singletonMap("update", Boolean.FALSE));
-        }
-        return ResponseEntity
-                .ok()
-                .body(Collections.singletonMap("update", Boolean.TRUE));
+    ResponseEntity<ActionResult> update(@RequestBody PlainDeposit plainDeposit) {
+        plainDepositService.update(plainDeposit);
+        return ResponseEntity.ok().body(new ActionResult("update", true));
     }
 
     @DeleteMapping("deleteById/{depositId}")
-    ResponseEntity<Map<String,Boolean>> deleteById(@PathVariable("depositId") Long depositId) {
-        try {
-            plainDepositService.deleteById(depositId);
-        } catch (Exception exception) {
-            return ResponseEntity
-                    .badRequest()
-                    .body(Collections.singletonMap("delete",Boolean.FALSE));
-        }
-        return ResponseEntity
-                .ok()
-                .body(Collections.singletonMap("delete",Boolean.TRUE));
+    ResponseEntity<ActionResult> deleteById(@PathVariable("depositId") Long depositId) {
+        plainDepositService.deleteById(depositId);
+        return ResponseEntity.ok().body(new ActionResult("delete",true));
     }
 }

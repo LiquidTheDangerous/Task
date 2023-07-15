@@ -39,7 +39,7 @@ public class PlainDepositServiceImpl implements PlainDepositService {
     @Transactional
     public void update(PlainDeposit plainDeposit) {
         if (!plainDepositRepository.existsById(plainDeposit.getId())) {
-            throw new ResourceNotFoundException();
+            throw new ResourceNotFoundException("no deposit to update", "update");
         }
         plainDepositRepository.save(plainDeposit);
     }
@@ -48,7 +48,7 @@ public class PlainDepositServiceImpl implements PlainDepositService {
     @Transactional
     public void deleteById(Long depositId) {
         if (!plainDepositRepository.existsById(depositId)) {
-            throw new ResourceNotFoundException();
+            throw new ResourceNotFoundException("no deposit to delete", "delete");
         }
         plainDepositRepository.deleteById(depositId);
     }

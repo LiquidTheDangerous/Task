@@ -7,9 +7,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("api/user/")
@@ -27,17 +25,9 @@ public class ClientController {
 
 
     @DeleteMapping("deleteById/{clientId}")
-    ResponseEntity<Map<String, Boolean>> deleteById(@PathVariable("clientId") Long clientId) {
-        try {
-            clientService.deleteById(clientId);
-        } catch (Exception exception) {
-            return ResponseEntity
-                    .badRequest()
-                    .body(Collections.singletonMap("delete", Boolean.FALSE));
-        }
-        return ResponseEntity
-                .ok()
-                .body(Collections.singletonMap("delete", Boolean.TRUE));
+    ResponseEntity<ActionResult> deleteById(@PathVariable("clientId") Long clientId) {
+        clientService.deleteById(clientId);
+        return ResponseEntity.ok().body(new ActionResult("delete",true));
     }
 
     @PostMapping("create")
@@ -46,23 +36,13 @@ public class ClientController {
     }
 
     @PutMapping("update")
-    ResponseEntity<Map<String,Boolean>> update(@RequestBody Client client) {
-        try {
-            clientService.update(client);
-        } catch (Exception exception) {
-            return  ResponseEntity
-                    .badRequest()
-                    .body(Collections.singletonMap("update",Boolean.FALSE));
-        }
-        return ResponseEntity
-                .ok()
-                .body(Collections.singletonMap("update",Boolean.TRUE));
+    ResponseEntity<ActionResult> update(@RequestBody Client client) {
+        clientService.update(client);
+        return ResponseEntity.ok().body(new ActionResult("update", true));
     }
 
     @GetMapping("getDepositByClientId/{clientId}")
     ResponseEntity<List<Deposit>> getDepositByClientId(@PathVariable("clientId") Long clientId) {
-        return ResponseEntity
-                .ok()
-                .body(clientService.getClientDepositByClientId(clientId));
+        return ResponseEntity.ok().body(clientService.getClientDepositByClientId(clientId));
     }
 }

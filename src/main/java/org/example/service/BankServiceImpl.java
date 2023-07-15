@@ -48,7 +48,7 @@ public class BankServiceImpl implements BankService {
     @Transactional
     public void update(Bank bank) {
         if (!bankRepository.existsById(bank.getId())){
-            throw new ResourceNotFoundException();
+            throw new ResourceNotFoundException("no bank to update","update");
         }
         bankRepository.save(bank);
     }
@@ -57,7 +57,7 @@ public class BankServiceImpl implements BankService {
     @Transactional
     public void deleteById(Long bankId) {
         if (!bankRepository.existsById(bankId)){
-            throw new ResourceNotFoundException();
+            throw new ResourceNotFoundException("no bank to delete","delete");
         }
         bankRepository.deleteById(bankId);
     }

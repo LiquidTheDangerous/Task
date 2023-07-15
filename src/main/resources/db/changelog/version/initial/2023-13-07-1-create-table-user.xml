@@ -18,10 +18,10 @@
                 <constraints nullable="false"/>
             </column>
             <column name="shortname" type="varchar(128)"/>
-            <column name="legal_form" type="integer"/>
+            <column name="organizational_legal_form_id" type="integer"/>
         </createTable>
         <addForeignKeyConstraint baseTableName="client"
-                                 baseColumnNames="legal_form"
+                                 baseColumnNames="organizational_legal_form_id"
                                  constraintName="organizational_legal_form_fk"
                                  referencedTableName="organizational_legal_form"
                                  referencedColumnNames="id"/>

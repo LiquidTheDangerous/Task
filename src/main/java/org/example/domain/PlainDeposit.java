@@ -14,22 +14,22 @@ import java.util.Date;
 @Data
 public class PlainDeposit {
     @Id
-    @Column(name = "id")
+    @Column(name = "id", nullable = false)
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "percent")
+    @Column(name = "percent", nullable = false)
     private Double percent;
 
-    @Column(name = "open_date")
+    @Column(name = "open_date", nullable = false)
     private Date openDate;
 
-    @Column(name = "time_period")
+    @Column(name = "time_period", nullable = false)
     private Integer timePeriod;
 
-    @Column(name="bank_id")
+    @Column(name="bank_id", nullable = false)
     private Long bankId;
 
-    @Column(name="client_id")
+    @Column(name="client_id", nullable = false)
     private Long clientId;
 }

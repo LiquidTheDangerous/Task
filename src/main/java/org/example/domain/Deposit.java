@@ -14,17 +14,17 @@ import java.sql.Date;
 @Data
 public class Deposit {
     @Id
-    @Column(name = "id")
+    @Column(name = "id", nullable = false)
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name="percent")
+    @Column(name="percent", nullable = false)
     private Double percent;
 
-    @Column(name="open_date")
+    @Column(name="open_date", nullable = false)
     private Date openDate;
 
-    @Column(name="time_period")
+    @Column(name="time_period", nullable = false)
     private Integer timePeriod;
 
     @ManyToOne(fetch = FetchType.LAZY)

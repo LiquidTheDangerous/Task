@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 
 
 import java.util.List;
-import java.util.Set;
+
 
 @Entity
 @Table(name="client", schema = "public")
@@ -16,18 +16,18 @@ import java.util.Set;
 @Data
 public class Client {
     @Id
-    @Column(name="id")
+    @Column(name="id",nullable = false)
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name="name")
+    @Column(name="name", nullable = false)
     private String name;
 
     @Column(name="shortname")
-    private String nickname;
+    private String shortname;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="legal_form")
+    @JoinColumn(name="organizational_legal_form_id")
     private OrganizationalLegalForm organizationalLegalForm;
 
     @OneToMany(mappedBy = "client", fetch = FetchType.LAZY)

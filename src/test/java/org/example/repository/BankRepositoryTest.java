@@ -1,14 +1,17 @@
 package org.example.repository;
 
-import junit.framework.Assert;
-import org.assertj.core.api.Assertions;
+
+
 import org.example.domain.Bank;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.jdbc.EmbeddedDatabaseConnection;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.context.SpringBootTest;
+
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
@@ -25,8 +28,8 @@ public class BankRepositoryTest {
         bankRepository.save(bankFist);
         bankRepository.save(bankSecond);
         var result = bankRepository.getFirstByName("Bank1");
-        Assert.assertTrue(result.isPresent());
-        Assert.assertEquals(1L, (long) result.get().getId());
+        assertTrue(result.isPresent());
+        assertEquals(1L, (long) result.get().getId());
 
     }
 
@@ -40,7 +43,7 @@ public class BankRepositoryTest {
         bankRepository.save(bankFist);
         bankRepository.save(bankSecond);
         var result = bankRepository.getFirstByBikCode(123456788L);
-        Assert.assertTrue(result.isPresent());
-        Assert.assertEquals(123456788L, (long) result.get().getBikCode());
+        assertTrue(result.isPresent());
+        assertEquals(123456788L, (long) result.get().getBikCode());
     }
 }

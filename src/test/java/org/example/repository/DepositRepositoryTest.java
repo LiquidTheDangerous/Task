@@ -1,12 +1,11 @@
 package org.example.repository;
 
-import jakarta.persistence.EntityManager;
-import junit.framework.Assert;
+
 import org.example.domain.Bank;
 import org.example.domain.Client;
 import org.example.domain.Deposit;
 import org.example.domain.OrganizationalLegalForm;
-import org.junit.jupiter.api.BeforeAll;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,11 +13,11 @@ import org.springframework.boot.jdbc.EmbeddedDatabaseConnection;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.boot.test.context.SpringBootTest;
 
-import java.sql.Date;
-import java.sql.Timestamp;
+
 import java.util.Calendar;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
 @DataJpaTest
@@ -74,13 +73,12 @@ public class DepositRepositoryTest {
                 6,
                 client,
                 bank));
-
     }
 
     @Test
     public void DepositRepository_getAllByClientId_ReturnsAllByClientId() {
         var clientDeposits = depositRepository.getAllByClientId(1L);
-        Assert.assertEquals(2, clientDeposits.size());
+        assertEquals(2, clientDeposits.size());
 
         //force sync
         entityManager.flush();
@@ -88,14 +86,14 @@ public class DepositRepositoryTest {
 
         var clientDepositsFromClient = clientRepository.getFirstByName("Semenov").get().getDeposits();
         var clientDepositsFromBank = bankRepository.getFirstByName("Open").get().getDeposits();
-        Assert.assertEquals(2, clientDepositsFromClient.size());
-        Assert.assertEquals(2, clientDepositsFromBank.size());
+        assertEquals(2, clientDepositsFromClient.size());
+        assertEquals(2, clientDepositsFromBank.size());
     }
 
     @Test
     public void DepositRepository_getAllByBankId_ReturnsAllByBankId() {
         var bankDeposits = depositRepository.getAllByBankId(1L);
-        Assert.assertEquals(2,bankDeposits.size());
+        assertEquals(2,bankDeposits.size());
     }
 
 }

@@ -12,13 +12,13 @@ import lombok.NoArgsConstructor;
 @Data
 public class OrganizationalLegalForm {
     @Id
-    @Column(name="id")
+    @Column(name="id", nullable = false)
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name="name")
+    @Column(name="name", nullable = false)
     private String name;
 
-    @Column(name="short_name")
+    @Column(name="short_name", nullable = false)
     private String shortName;
 }

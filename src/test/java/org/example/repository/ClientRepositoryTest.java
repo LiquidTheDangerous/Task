@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.jdbc.EmbeddedDatabaseConnection;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import junit.framework.Assert;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @DataJpaTest()
 @AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
@@ -23,7 +25,7 @@ public class ClientRepositoryTest {
         clientRepository.save(clientSecond);
 
         var result = clientRepository.getFirstByName("Client1");
-        Assert.assertTrue(result.isPresent());
-        Assert.assertEquals("Client1", result.get().getName());
+        assertTrue(result.isPresent());
+        assertEquals("Client1", result.get().getName());
     }
 }

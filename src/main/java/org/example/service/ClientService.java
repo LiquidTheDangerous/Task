@@ -14,6 +14,8 @@ public interface ClientService {
 
     Client getClientById(Long id);
 
+    Client getClientByName(String name);
+
     List<Deposit> getClientDepositByClientId(Long id);
 
     Client save(Client client);

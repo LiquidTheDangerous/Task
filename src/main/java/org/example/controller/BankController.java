@@ -19,23 +19,60 @@ public class BankController {
     }
 
     @GetMapping("getAll")
-    ResponseEntity<Iterable<Bank>> getAll(@RequestParam(value="pageNumber", defaultValue = "0",required = false) Integer pageNumber,
-                                          @RequestParam(value = "pageSize",defaultValue = "25",required = false)  Integer pageSize) {
+    ResponseEntity<ApiBody<Iterable<Bank>>> getAll(@RequestParam(value = "pageNumber", defaultValue = "0", required = false) Integer pageNumber,
+                                                   @RequestParam(value = "pageSize", defaultValue = "25", required = false) Integer pageSize) {
         return ResponseEntity
                 .ok()
-                .body(bankService.getAll(pageNumber,pageSize));
+                .body(ApiBody.<Iterable<Bank>>builder()
+                        .body(bankService.getAll(pageNumber, pageSize))
+                        .actionResult(
+                                new ActionResult("read", true))
+                        .build()
+                );
     }
 
     @GetMapping("getById/{id}")
-    ResponseEntity<Bank> getBankById(@PathVariable("id") Long id) {
-        return ResponseEntity.ok().body(bankService.getBankById(id));
+    ResponseEntity<ApiBody<Bank>> getById(@PathVariable("id") Long id) {
+        return ResponseEntity.ok().body(
+                ApiBody.<Bank>builder()
+                        .body(bankService.getBankById(id))
+                        .actionResult(new ActionResult("read", true))
+                        .build()
+        );
+    }
+
+    @GetMapping("getByName")
+    ResponseEntity<ApiBody<Bank>> getByName(@RequestParam(name = "name") String name) {
+        return ResponseEntity
+                .ok()
+                .body(
+                ApiBody.<Bank>builder()
+                        .body(bankService.getBankByName(name))
+                        .actionResult(new ActionResult("read", true))
+                        .build()
+        );
+    }
+
+    @GetMapping("getByBikCode")
+    ResponseEntity<ApiBody<Bank>> getByBikCode(@RequestParam(name = "bikCode") Integer bikCode) {
+        return ResponseEntity
+                .ok()
+                .body(
+                ApiBody.<Bank>builder().body(bankService.getBankByBikCode(bikCode))
+                        .actionResult(new ActionResult("read", true))
+                        .build());
     }
 
     @GetMapping("getDepositByBankId/{bankId}")
-    ResponseEntity<List<Deposit>> getDepositByBankId(@PathVariable("bankId") Long bankId) {
+    ResponseEntity<ApiBody<List<Deposit>>> getDepositByBankId(@PathVariable("bankId") Long bankId) {
         return ResponseEntity
                 .ok()
-                .body(bankService.getBankDepositByBankId(bankId));
+                .body(
+                        ApiBody.<List<Deposit>>builder()
+                                .body(bankService.getBankDepositByBankId(bankId))
+                                .actionResult(new ActionResult("read", true))
+                                .build()
+                );
     }
 
     @DeleteMapping("deleteById/{bankId}")
@@ -45,13 +82,18 @@ public class BankController {
     }
 
     @PostMapping("create")
-    ResponseEntity<Bank> create(@RequestBody Bank bank) {
-        return ResponseEntity.ok().body(bankService.save(bank));
+    ResponseEntity<ApiBody<Bank>> create(@RequestBody Bank bank) {
+        return ResponseEntity.ok().body(
+                ApiBody.<Bank>builder()
+                        .body(bankService.save(bank))
+                        .actionResult(new ActionResult("create", true))
+                        .build()
+        );
     }
 
     @PutMapping("update")
     ResponseEntity<ActionResult> update(@RequestBody Bank bank) {
         bankService.update(bank);
-        return ResponseEntity.ok().body(new ActionResult("update",true));
+        return ResponseEntity.ok().body(new ActionResult("update", true));
     }
 }

@@ -39,6 +39,11 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
+    public Client getClientByName(String name) {
+        return clientRepository.getFirstByName(name).orElseThrow(()->new ResourceNotFoundException("not such client with given name: " + name,"read"));
+    }
+
+    @Override
     public List<Deposit> getClientDepositByClientId(Long id) {
         return depositRepository.getAllByClientId(id);
     }

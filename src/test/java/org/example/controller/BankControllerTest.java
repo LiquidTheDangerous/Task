@@ -38,16 +38,24 @@ public class BankControllerTest {
     }
 
     @Test
-    public void BankController_Create_ReturnCreated() throws Exception{
-        var testBank = new Bank(null,"Open",123456789L,null);
+    public void BankController_Create_ReturnCreated() throws Exception {
+        var testBank = new Bank(null, "Open", 123456789, null);
 
-        doAnswer(invocation->invocation.getArgument(0)).when(bankService).save(testBank);
+        doAnswer(invocation -> invocation.getArgument(0)).when(bankService).save(testBank);
         ResultActions response = mockMvc
                 .perform(post("/api/bank/create")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(testBank)));
+
+
         response.andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().json(objectMapper.writeValueAsString(testBank)));
+                .andExpect(MockMvcResultMatchers.content().json(objectMapper
+                        .writeValueAsString(
+                                ApiBody.<Bank>builder()
+                                        .body(testBank)
+                                        .actionResult(
+                                                new ActionResult("create", true))
+                                        .build())));
     }
 
 }

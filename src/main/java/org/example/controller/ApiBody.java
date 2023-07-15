@@ -1,11 +1,14 @@
 package org.example.controller;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
 @AllArgsConstructor
+@Builder
 @Data
-public class ErrorBody {
-    private ActionResult actionResult;
-    private String message;
+public class ApiBody<T>{
+
+    ActionResult actionResult;
+    T body;
 }

@@ -43,7 +43,7 @@ public class BankServiceImplTest {
         var bank = new Bank();
         when(bankRepository.findById(Mockito.any())).thenReturn(Optional.of(bank));
         var savedBank = bankService.getBankById(101L);
-        assertSame(bank, savedBank.get());
+        assertSame(bank, savedBank);
     }
 
     @Test void BankServiceImpl_getBankDepositByBankId_ReturnsAllBankDeposits(){

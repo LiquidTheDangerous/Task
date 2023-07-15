@@ -55,7 +55,7 @@ public class DepositRepositoryTest {
                 new Bank(
                         1L,
                         "Open",
-                        12345678L,
+                        12345678,
                         null)
         );
         depositRepository.save(new Deposit(

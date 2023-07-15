@@ -14,6 +14,10 @@ public interface BankService {
 
     Bank getBankById(Long id);
 
+    Bank getBankByName(String bankName);
+
+    Bank getBankByBikCode(Integer bikCode);
+
     List<Deposit> getBankDepositByBankId(Long bankId);
 
     Bank save(Bank bank);

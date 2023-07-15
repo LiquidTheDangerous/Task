@@ -19,35 +19,75 @@ public class ClientController {
     }
 
     @GetMapping("getAll")
-    ResponseEntity<Iterable<Client>> getAll(@RequestParam(name = "pageNumber", defaultValue = "0", required = false) Integer pageNumber,
-                                            @RequestParam(name = "pageSize", defaultValue = "25", required = false) Integer pageSize) {
-        return ResponseEntity.ok().body(clientService.getAll(pageNumber,pageSize));
+    ResponseEntity<ApiBody<Iterable<Client>>> getAll(@RequestParam(name = "pageNumber", defaultValue = "0", required = false) Integer pageNumber,
+                                                     @RequestParam(name = "pageSize", defaultValue = "25", required = false) Integer pageSize) {
+        return ResponseEntity
+                .ok()
+                .body(
+                        ApiBody.<Iterable<Client>>builder()
+                                .body(clientService.getAll(pageNumber, pageSize))
+                                .actionResult(new ActionResult("read", true))
+                                .build()
+                );
     }
 
     @GetMapping("getById/{id}")
-    ResponseEntity<Client> getById(@PathVariable(name = "id") Long id) {
-        return ResponseEntity.ok().body(clientService.getClientById(id));
+    ResponseEntity<ApiBody<Client>> getById(@PathVariable(name = "id") Long id) {
+        return ResponseEntity
+                .ok()
+                .body(
+                        ApiBody.<Client>builder()
+                                .body(clientService.getClientById(id))
+                                .actionResult(new ActionResult("read", true))
+                                .build()
+                );
+    }
+
+    @GetMapping("getByName")
+    ResponseEntity<ApiBody<Client>> getByName(@RequestParam(name = "name") String name) {
+        return ResponseEntity.ok().body(
+                ApiBody.<Client>builder()
+                        .body(clientService.getClientByName(name))
+                        .actionResult(new ActionResult("read", true))
+                        .build()
+        );
     }
 
     @DeleteMapping("deleteById/{clientId}")
     ResponseEntity<ActionResult> deleteById(@PathVariable("clientId") Long clientId) {
         clientService.deleteById(clientId);
-        return ResponseEntity.ok().body(new ActionResult("delete", true));
+        return ResponseEntity
+                .ok()
+                .body(new ActionResult("delete", true));
     }
 
     @PostMapping("create")
-    ResponseEntity<Client> create(@RequestBody Client client) {
-        return ResponseEntity.ok().body(clientService.save(client));
+    ResponseEntity<ApiBody<Client>> create(@RequestBody Client client) {
+        return ResponseEntity.ok().body(
+                ApiBody.<Client>builder()
+                        .body(clientService.save(client))
+                        .actionResult(new ActionResult("create", true))
+                        .build()
+        );
     }
 
     @PutMapping("update")
     ResponseEntity<ActionResult> update(@RequestBody Client client) {
         clientService.update(client);
-        return ResponseEntity.ok().body(new ActionResult("update", true));
+        return ResponseEntity
+                .ok()
+                .body(new ActionResult("update", true));
     }
 
     @GetMapping("getDepositByClientId/{clientId}")
-    ResponseEntity<List<Deposit>> getDepositByClientId(@PathVariable("clientId") Long clientId) {
-        return ResponseEntity.ok().body(clientService.getClientDepositByClientId(clientId));
+    ResponseEntity<ApiBody<List<Deposit>>> getDepositByClientId(@PathVariable("clientId") Long clientId) {
+        return ResponseEntity
+                .ok()
+                .body(
+                        ApiBody.<List<Deposit>>builder()
+                                .body(clientService.getClientDepositByClientId(clientId))
+                                .actionResult(new ActionResult("read", true))
+                                .build()
+                );
     }
 }

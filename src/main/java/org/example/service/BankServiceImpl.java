@@ -38,6 +38,16 @@ public class BankServiceImpl implements BankService {
     }
 
     @Override
+    public Bank getBankByName(String bankName) {
+        return bankRepository.getFirstByName(bankName).orElseThrow(()->new ResourceNotFoundException("no such bank with given name: " + bankName,"read"));
+    }
+
+    @Override
+    public Bank getBankByBikCode(Integer bikCode) {
+        return bankRepository.getFirstByBikCode(bikCode).orElseThrow(()->new ResourceNotFoundException("no such bank with given bik code: "+ bikCode,"read"));
+    }
+
+    @Override
     public List<Deposit> getBankDepositByBankId(Long bankId) {
         return depositRepository.getAllByBankId(bankId);
     }

@@ -39,7 +39,7 @@ public class PlainDepositServiceImplTest {
         var deposit = new PlainDeposit();
         when(depositRepository.findById(any())).thenReturn(Optional.of(deposit));
         var savedDeposit = depositService .getDepositById(1L);
-        assertSame(deposit,savedDeposit.get());
+        assertSame(deposit,savedDeposit);
     }
 
     @Test

@@ -24,9 +24,9 @@ public class BankRepositoryTest {
     @Test
     public void BankRepository_getFirstByName_ReturnsFirstByName() {
         var bankFist
-                = new Bank(null, "Bank1", 123456789L, null);
+                = new Bank(null, "Bank1", 123456788, null);
         var bankSecond
-                = new Bank(null, "Bank2", 123456789L, null);
+                = new Bank(null, "Bank2", 123456789, null);
         bankRepository.save(bankFist);
         bankRepository.save(bankSecond);
         var result = bankRepository.getFirstByName("Bank1");
@@ -38,13 +38,13 @@ public class BankRepositoryTest {
     @Test
     public void BankRepository_getFirstByBikCode_ReturnsFirstByBikCode() {
         var bankFist
-                = new Bank(1L, "Bank1", 123456788L, null);
+                = new Bank(1L, "Bank1", 123456788, null);
         var bankSecond
-                = new Bank(2L, "Bank2", 123456789L, null);
+                = new Bank(2L, "Bank2", 123456789, null);
                 bankRepository.save(bankFist);
         bankRepository.save(bankFist);
         bankRepository.save(bankSecond);
-        var result = bankRepository.getFirstByBikCode(123456788L);
+        var result = bankRepository.getFirstByBikCode(123456788);
         assertTrue(result.isPresent());
         assertEquals(123456788L, (long) result.get().getBikCode());
     }

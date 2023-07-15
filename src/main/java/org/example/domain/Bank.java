@@ -24,7 +24,7 @@ public class Bank {
     private String name;
 
     @Column(name="bik_code", nullable = false, unique = true)
-    private Long bikCode;
+    private Integer bikCode;
 
     @OneToMany(mappedBy = "bank",fetch = FetchType.LAZY)
     private List<Deposit> deposits;

@@ -1,4 +1,12 @@
 package org.example.controller;
 
-public record ActionResult(String action, boolean result) {
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+@AllArgsConstructor
+@Data
+public class ActionResult {
+    private String action;
+
+    private boolean result;
 }

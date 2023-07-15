@@ -13,6 +13,8 @@ import org.springframework.boot.jdbc.EmbeddedDatabaseConnection;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.jdbc.Sql;
 
 
 import java.util.Calendar;
@@ -21,6 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
 @DataJpaTest
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class DepositRepositoryTest {
     @Autowired
     DepositRepository depositRepository;
@@ -39,7 +42,7 @@ public class DepositRepositoryTest {
     void createEntity() {
         var client = clientRepository.save(
                 new Client(
-                        null,
+                        1L,
                         "Semenov",
                         "Semen",
                         new OrganizationalLegalForm(
@@ -50,7 +53,7 @@ public class DepositRepositoryTest {
         );
         var bank = bankRepository.save(
                 new Bank(
-                        null,
+                        1L,
                         "Open",
                         12345678L,
                         null)
@@ -73,6 +76,9 @@ public class DepositRepositoryTest {
                 6,
                 client,
                 bank));
+                //force sync
+        entityManager.flush();
+        entityManager.clear();
     }
 
     @Test
@@ -80,9 +86,7 @@ public class DepositRepositoryTest {
         var clientDeposits = depositRepository.getAllByClientId(1L);
         assertEquals(2, clientDeposits.size());
 
-        //force sync
-        entityManager.flush();
-        entityManager.clear();
+
 
         var clientDepositsFromClient = clientRepository.getFirstByName("Semenov").get().getDeposits();
         var clientDepositsFromBank = bankRepository.getFirstByName("Open").get().getDeposits();

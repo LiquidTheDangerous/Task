@@ -6,10 +6,10 @@ import org.example.domain.Deposit;
 import org.example.exceptions.ResourceNotFoundException;
 import org.example.repository.BankRepository;
 import org.example.repository.DepositRepository;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class BankServiceImpl implements BankService {
@@ -28,8 +28,13 @@ public class BankServiceImpl implements BankService {
     }
 
     @Override
-    public Optional<Bank> getBankById(Long id) {
-        return bankRepository.findById(id);
+    public Iterable<Bank> getAll(int pageNumber, int pageSize) {
+        return bankRepository.findAll(PageRequest.of(pageNumber, pageSize));
+    }
+
+    @Override
+    public Bank getBankById(Long id) {
+        return bankRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("no such bank id: " + id, "read"));
     }
 
     @Override
@@ -47,8 +52,8 @@ public class BankServiceImpl implements BankService {
     @Override
     @Transactional
     public void update(Bank bank) {
-        if (!bankRepository.existsById(bank.getId())){
-            throw new ResourceNotFoundException("no bank to update","update");
+        if (!bankRepository.existsById(bank.getId())) {
+            throw new ResourceNotFoundException("no bank to update", "update");
         }
         bankRepository.save(bank);
     }
@@ -56,8 +61,8 @@ public class BankServiceImpl implements BankService {
     @Override
     @Transactional
     public void deleteById(Long bankId) {
-        if (!bankRepository.existsById(bankId)){
-            throw new ResourceNotFoundException("no bank to delete","delete");
+        if (!bankRepository.existsById(bankId)) {
+            throw new ResourceNotFoundException("no bank to delete", "delete");
         }
         bankRepository.deleteById(bankId);
     }

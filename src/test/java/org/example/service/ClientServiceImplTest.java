@@ -42,7 +42,7 @@ public class ClientServiceImplTest {
     public void ClientServiceImpl_getClientById_ReturnsClientById() {
         var client = Client.builder().id(1L).build();
         doAnswer(invocation-> Optional.of(client)).when(clientRepository).findById(any());
-        var savedClient = clientService.getClientById(1L).get();
+        var savedClient = clientService.getClientById(1L);
         assertSame(savedClient,client);
     }
 

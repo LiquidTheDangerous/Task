@@ -4,9 +4,8 @@ import jakarta.transaction.Transactional;
 import org.example.domain.PlainDeposit;
 import org.example.exceptions.ResourceNotFoundException;
 import org.example.repository.PlainDepositRepository;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 public class PlainDepositServiceImpl implements PlainDepositService {
@@ -23,8 +22,13 @@ public class PlainDepositServiceImpl implements PlainDepositService {
     }
 
     @Override
-    public Optional<PlainDeposit> getDepositById(Long id) {
-        return plainDepositRepository.findById(id);
+    public Iterable<PlainDeposit> getAll(int pageNumber, int pageSize) {
+        return plainDepositRepository.findAll(PageRequest.of(pageNumber,pageSize));
+    }
+
+    @Override
+    public PlainDeposit getDepositById(Long id) {
+        return plainDepositRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("no such deposit id: " + id, "read"));
     }
 
     @Override

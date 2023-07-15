@@ -5,13 +5,14 @@ import org.example.domain.Deposit;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public interface ClientService {
     Iterable<Client> getAll();
 
-    Optional<Client> getClientById(Long id);
+    Iterable<Client> getAll(int pageNumber, int pageSize);
+
+    Client getClientById(Long id);
 
     List<Deposit> getClientDepositByClientId(Long id);
 

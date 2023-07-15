@@ -6,10 +6,10 @@ import org.example.domain.Deposit;
 import org.example.exceptions.ResourceNotFoundException;
 import org.example.repository.ClientRepository;
 import org.example.repository.DepositRepository;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ClientServiceImpl implements ClientService {
@@ -29,8 +29,13 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public Optional<Client> getClientById(Long id) {
-        return clientRepository.findById(id);
+    public Iterable<Client> getAll(int pageNumber, int pageSize) {
+        return clientRepository.findAll(PageRequest.of(pageNumber,pageSize));
+    }
+
+    @Override
+    public Client getClientById(Long id) {
+        return clientRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("no such client id: " + id,"read"));
     }
 
     @Override

@@ -17,10 +17,16 @@ public class DepositController {
     }
 
     @GetMapping("getAll")
-    ResponseEntity<Iterable<PlainDeposit>> getAll() {
+    ResponseEntity<Iterable<PlainDeposit>> getAll(@RequestParam(name = "pageNumber", defaultValue = "0", required = false) Integer pageNumber,
+                                                  @RequestParam(name = "pageSize", defaultValue = "25", required = false) Integer pageSize) {
         return ResponseEntity.
                 ok()
-                .body(plainDepositService.getAll());
+                .body(plainDepositService.getAll(pageNumber, pageSize));
+    }
+
+    @GetMapping("getById/{id}")
+    ResponseEntity<PlainDeposit> getById(@PathVariable("id") Long id) {
+        return ResponseEntity.ok().body(plainDepositService.getDepositById(id));
     }
 
     @PostMapping("create")
@@ -37,6 +43,6 @@ public class DepositController {
     @DeleteMapping("deleteById/{depositId}")
     ResponseEntity<ActionResult> deleteById(@PathVariable("depositId") Long depositId) {
         plainDepositService.deleteById(depositId);
-        return ResponseEntity.ok().body(new ActionResult("delete",true));
+        return ResponseEntity.ok().body(new ActionResult("delete", true));
     }
 }

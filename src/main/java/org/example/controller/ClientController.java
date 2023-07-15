@@ -19,15 +19,20 @@ public class ClientController {
     }
 
     @GetMapping("getAll")
-    ResponseEntity<Iterable<Client>> getAll() {
-        return ResponseEntity.ok().body(clientService.getAll());
+    ResponseEntity<Iterable<Client>> getAll(@RequestParam(name = "pageNumber", defaultValue = "0", required = false) Integer pageNumber,
+                                            @RequestParam(name = "pageSize", defaultValue = "25", required = false) Integer pageSize) {
+        return ResponseEntity.ok().body(clientService.getAll(pageNumber,pageSize));
     }
 
+    @GetMapping("getById/{id}")
+    ResponseEntity<Client> getById(@PathVariable(name = "id") Long id) {
+        return ResponseEntity.ok().body(clientService.getClientById(id));
+    }
 
     @DeleteMapping("deleteById/{clientId}")
     ResponseEntity<ActionResult> deleteById(@PathVariable("clientId") Long clientId) {
         clientService.deleteById(clientId);
-        return ResponseEntity.ok().body(new ActionResult("delete",true));
+        return ResponseEntity.ok().body(new ActionResult("delete", true));
     }
 
     @PostMapping("create")

@@ -19,11 +19,16 @@ public class BankController {
     }
 
     @GetMapping("getAll")
-    ResponseEntity<Iterable<Bank>> getAll() {
+    ResponseEntity<Iterable<Bank>> getAll(@RequestParam(value="pageNumber", defaultValue = "0",required = false) Integer pageNumber,
+                                          @RequestParam(value = "pageSize",defaultValue = "25",required = false)  Integer pageSize) {
         return ResponseEntity
                 .ok()
-                .body(bankService.getAll());
+                .body(bankService.getAll(pageNumber,pageSize));
+    }
 
+    @GetMapping("getById/{id}")
+    ResponseEntity<Bank> getBankById(@PathVariable("id") Long id) {
+        return ResponseEntity.ok().body(bankService.getBankById(id));
     }
 
     @GetMapping("getDepositByBankId/{bankId}")
@@ -35,6 +40,7 @@ public class BankController {
 
     @DeleteMapping("deleteById/{bankId}")
     ResponseEntity<ActionResult> deleteById(@PathVariable("bankId") Long bankId) {
+        bankService.deleteById(bankId);
         return ResponseEntity.ok().body(new ActionResult("delete", true));
     }
 

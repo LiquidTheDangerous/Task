@@ -3,19 +3,18 @@ package org.example.controller;
 import org.example.domain.Client;
 import org.example.domain.Deposit;
 import org.example.service.ClientService;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("api/user/")
+@RequestMapping("api/client/")
 public class ClientController {
     private final ClientService clientService;
 
-    public ClientController(@Qualifier("clientServiceImpl") ClientService userService) {
-        this.clientService = userService;
+    public ClientController(ClientService clientService) {
+        this.clientService = clientService;
     }
 
     @GetMapping("getAll")

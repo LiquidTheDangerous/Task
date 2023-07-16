@@ -45,6 +45,9 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public List<Deposit> getClientDepositByClientId(Long id) {
+        if (!clientRepository.existsById(id)) {
+            throw new ResourceNotFoundException("no such client with given id: " + id,"read");
+        }
         return depositRepository.getAllByClientId(id);
     }
 

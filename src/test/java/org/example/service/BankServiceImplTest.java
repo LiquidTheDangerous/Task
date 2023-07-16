@@ -48,6 +48,7 @@ public class BankServiceImplTest {
 
     @Test void BankServiceImpl_getBankDepositByBankId_ReturnsAllBankDeposits(){
         var bankDeposits = new ArrayList<Deposit>();
+        when(depositRepository.existsById(any(Long.class))).thenReturn(true);
         doAnswer(invocation->bankDeposits).when(depositRepository).getAllByBankId(any());
         var savedBankDeposits = bankService.getBankDepositByBankId(1L);
         assertSame(savedBankDeposits,bankDeposits);

@@ -16,7 +16,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.annotation.DirtiesContext;
 
 
-import java.util.Calendar;
+import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -60,18 +60,14 @@ public class DepositRepositoryTest {
         depositRepository.save(new Deposit(
                 null,
                 1.4,
-                new java.sql.Date(
-                        Calendar.getInstance().getTime().getTime()
-                ),
+                LocalDate.now(),
                 12,
                 client,
                 bank));
         depositRepository.save(new Deposit(
                 null,
                 2.0,
-                new java.sql.Date(
-                        Calendar.getInstance().getTime().getTime()
-                ),
+                LocalDate.now(),
                 6,
                 client,
                 bank));

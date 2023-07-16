@@ -50,6 +50,7 @@ public class ClientServiceImplTest {
     public void ClientServiceImpl_getClientDepositById_ReturnsAllSavedDepositsByClientId() {
         var deposits = new ArrayList<Deposit>();
         doAnswer(invocation->deposits).when(depositRepository).getAllByClientId(any());
+        when(clientRepository.existsById(any(Long.class))).thenReturn(true);
         var savedDeposits = clientService.getClientDepositByClientId(1L);
         assertSame(savedDeposits,deposits);
     }

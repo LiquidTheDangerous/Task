@@ -18,8 +18,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -150,8 +150,8 @@ public class BankControllerTest {
     @Test
     public void BankControllerTest_getDepositByBankId_returnsDepositsByBankId() throws Exception {
         var deposits = new ArrayList<Deposit>();
-        deposits.add(new Deposit(null, 1.3, new java.sql.Date(Calendar.getInstance().getTime().getTime()), 12, null, null));
-        deposits.add(new Deposit(null, 2.8, new java.sql.Date(Calendar.getInstance().getTime().getTime()), 24, null, null));
+        deposits.add(new Deposit(null, 1.3, LocalDate.now(), 12, null, null));
+        deposits.add(new Deposit(null, 2.8, LocalDate.now(), 24, null, null));
 
         when(bankService.getBankDepositByBankId(any(Long.class))).thenReturn(deposits);
 
@@ -240,7 +240,6 @@ public class BankControllerTest {
                         .json(objectMapper
                                 .writeValueAsString(
                                         new ActionResultMessage(op, true))));
-
 
 
     }

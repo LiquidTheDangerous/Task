@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Table(name="deposit", schema = "public")
@@ -22,7 +22,8 @@ public class PlainDeposit {
     private Double percent;
 
     @Column(name = "open_date", nullable = false)
-    private Date openDate;
+    @Temporal(TemporalType.DATE)
+    private LocalDate openDate;
 
     @Column(name = "time_period", nullable = false)
     private Integer timePeriod;

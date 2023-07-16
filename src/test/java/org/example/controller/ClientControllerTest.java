@@ -17,8 +17,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Calendar;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
@@ -114,8 +114,8 @@ public class ClientControllerTest {
 
         response.andExpect(MockMvcResultMatchers.status().isNotFound())
                 .andExpect(MockMvcResultMatchers.content().json(
-                        objectMapper.writeValueAsString(objectMapper.writeValueAsString(
-                                new ErrorBody(new ActionResultMessage(op, false), msg)))));
+                        objectMapper.writeValueAsString(
+                                new ErrorBody(new ActionResultMessage(op, false), msg))));
     }
 
     @Test
@@ -224,8 +224,8 @@ public class ClientControllerTest {
     public void ClientController_getDepositsByClientId_ReturnsClientDeposits() throws Exception {
         var clientId = 1L;
         var deposits = new ArrayList<Deposit>();
-        deposits.add(new Deposit(null, 1.3, new java.sql.Date(Calendar.getInstance().getTime().getTime()), 12, null, null));
-        deposits.add(new Deposit(null, 2.8, new java.sql.Date(Calendar.getInstance().getTime().getTime()), 24, null, null));
+        deposits.add(new Deposit(null, 1.3, LocalDate.now(), 12, null, null));
+        deposits.add(new Deposit(null, 2.8, LocalDate.now(), 24, null, null));
 
         when(clientService.getClientDepositByClientId(any(Long.class))).thenReturn(deposits);
 
@@ -254,6 +254,4 @@ public class ClientControllerTest {
                         new ErrorBody(new ActionResultMessage(op, false), msg)
                 )));
     }
-
-
 }

@@ -49,6 +49,9 @@ public class BankServiceImpl implements BankService {
 
     @Override
     public List<Deposit> getBankDepositByBankId(Long bankId) {
+        if (!depositRepository.existsById(bankId)) {
+            throw new ResourceNotFoundException("no such bank id: "+ bankId,"read");
+        }
         return depositRepository.getAllByBankId(bankId);
     }
 

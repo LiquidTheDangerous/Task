@@ -1,6 +1,10 @@
 package org.example.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.example.controller.body.ActionResultMessage;
+import org.example.controller.body.ApiBody;
+import org.example.controller.body.ErrorBody;
+import org.example.controller.util.HttpMethodToOperationMapperImpl;
 import org.example.domain.Bank;
 import org.example.domain.Deposit;
 import org.example.exceptions.ResourceNotFoundException;
@@ -35,6 +39,8 @@ public class BankControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
+    @MockBean
+    HttpMethodToOperationMapperImpl httpMethodToOperationMapper;
 
     @MockBean
     BankServiceImpl bankService;
@@ -45,12 +51,12 @@ public class BankControllerTest {
 
     @Test
     public void BankController_create_ReturnCreated() throws Exception {
-        var testBank = new Bank(null, "Open", 123456789, null);
+        var testBank = new Bank(null, "Open", 123456789);
 
         doAnswer(invocation -> invocation.getArgument(0)).when(bankService).save(testBank);
         var response = mockMvc
                 .perform(post("/api/bank/create")
-                        .contentType(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON_VALUE )
                         .content(objectMapper.writeValueAsString(testBank)));
 
 
@@ -66,7 +72,7 @@ public class BankControllerTest {
 
     @Test
     public void BankControllerTest_getById_ReturnsBankById() throws Exception {
-        var bank = new Bank(null, "Open", 123456789, null);
+        var bank = new Bank(null, "Open", 123456789);
         when(bankService.getBankById(any())).thenReturn(bank);
         var response = mockMvc.perform(
                 get("/api/bank/getById/1")
@@ -94,7 +100,7 @@ public class BankControllerTest {
 
     @Test
     public void BankControllerTest_getByName_ReturnsBankByName() throws Exception {
-        var bank = new Bank(null, "Open", null, null);
+        var bank = new Bank(null, "Open", null);
         when(bankService.getBankByName(any(String.class))).thenReturn(bank);
 
         var response = mockMvc.perform(get("/api/bank/getByName")
@@ -130,7 +136,7 @@ public class BankControllerTest {
     @Test
     public void BankControllerTest_getByBikCode_ReturnsBankByBikCode() throws Exception {
         var code = 123456789;
-        var bank = new Bank(null, "Open", code, null);
+        var bank = new Bank(null, "Open", code);
         when(bankService.getBankByBikCode(any(Integer.class))).thenReturn(bank);
 
         var response = mockMvc.perform(get("/api/bank/getByBikCode")
@@ -221,7 +227,7 @@ public class BankControllerTest {
     @Test
     public void BankControllerTest_update_AssertThatControllerUpdateBank() throws Exception {
         var op = "update";
-        var bank = new Bank(1L, "Open", 123456789, null);
+        var bank = new Bank(1L, "Open", 123456789);
 
         doAnswer(invocation -> {
             var bankToUpdate = invocation.getArgument(0);

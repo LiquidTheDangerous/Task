@@ -2,8 +2,13 @@ package org.example.controller;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.example.controller.body.ActionResultMessage;
+import org.example.controller.body.ApiBody;
+import org.example.controller.body.ErrorBody;
+import org.example.controller.util.HttpMethodToOperationMapperImpl;
 import org.example.domain.Client;
 import org.example.domain.Deposit;
+import org.example.domain.PlainClient;
 import org.example.exceptions.ResourceNotFoundException;
 import org.example.service.ClientServiceImpl;
 import org.junit.jupiter.api.Test;
@@ -36,6 +41,10 @@ public class ClientControllerTest {
     @MockBean
     ClientServiceImpl clientService;
 
+
+    @MockBean
+    HttpMethodToOperationMapperImpl httpMethodToOperationMapper;
+
     @Autowired
     ObjectMapper objectMapper;
 
@@ -44,12 +53,12 @@ public class ClientControllerTest {
 
     @Test
     public void ClientController_create_ReturnCreated() throws Exception {
-        var client = Client.builder()
+        var client = PlainClient.builder()
                 .name("client")
                 .shortname("client")
                 .id(null)
                 .build();
-        when(clientService.save(any(Client.class))).thenReturn(client);
+        when(clientService.save(any(PlainClient.class))).thenReturn(client);
         var response = mockMvc.perform(post("/api/client/create")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(client)));
@@ -58,7 +67,7 @@ public class ClientControllerTest {
                 .andExpect(MockMvcResultMatchers
                         .content()
                         .json(objectMapper.writeValueAsString(
-                                ApiBody.<Client>builder()
+                                ApiBody.<PlainClient>builder()
                                         .body(client)
                                         .actionResult(new ActionResultMessage("create", true))
                                         .build())));
@@ -84,12 +93,12 @@ public class ClientControllerTest {
 
     @Test
     public void ClientController_update_AssertThatControllerReturnsNotFoundStatus_when_NoSuchClientToUpdate() throws Exception {
-        var client = Client.builder().id(1L).name("name").shortname("name").build();
+        var client = PlainClient.builder().id(1L).name("name").shortname("name").build();
         var msg = "no such client to update";
         var op = "update";
         doAnswer(invocation -> {
             throw new ResourceNotFoundException(msg, op);
-        }).when(clientService).update(any(Client.class));
+        }).when(clientService).update(any(PlainClient.class));
 
         var response = mockMvc.perform(put("/api/client/update")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -139,8 +148,8 @@ public class ClientControllerTest {
     @Test
     public void ClientController_getAll_ReturnsAllSavedClients() throws Exception {
         var clients = new ArrayList<Client>();
-        clients.add(new Client(1L, "name1", "shortname1", null, null));
-        clients.add(new Client(1L, "name2", "shortname2", null, null));
+        clients.add(new Client(1L, "name1", "shortname1", null));
+        clients.add(new Client(1L, "name2", "shortname2", null));
         when(clientService.getAll(any(Integer.class), any(Integer.class)))
                 .thenReturn(clients);
         var response = mockMvc.perform(get("/api/client/getAll")

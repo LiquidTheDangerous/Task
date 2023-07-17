@@ -1,5 +1,7 @@
 package org.example.controller;
 
+import org.example.controller.body.ActionResultMessage;
+import org.example.controller.body.ApiBody;
 import org.example.domain.PlainDeposit;
 import org.example.service.PlainDepositService;
 import org.springframework.http.ResponseEntity;

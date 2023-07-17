@@ -1,4 +1,4 @@
-package org.example.service;
+package org.example.controller.util;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMethod;

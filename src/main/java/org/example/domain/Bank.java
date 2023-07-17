@@ -1,13 +1,11 @@
 package org.example.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
 
 @Entity
 @Table(name="bank",schema = "public")
@@ -26,8 +24,4 @@ public class Bank {
 
     @Column(name="bik_code", nullable = false, unique = true)
     private Integer bikCode;
-
-    @OneToMany(mappedBy = "bank",fetch = FetchType.EAGER)
-    @JsonBackReference
-    private List<Deposit> deposits;
 }

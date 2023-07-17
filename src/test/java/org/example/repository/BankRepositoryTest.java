@@ -24,9 +24,9 @@ public class BankRepositoryTest {
     @Test
     public void BankRepository_getFirstByName_ReturnsFirstByName() {
         var bankFist
-                = new Bank(null, "Bank1", 123456788, null);
+                = new Bank(null, "Bank1", 123456788);
         var bankSecond
-                = new Bank(null, "Bank2", 123456789, null);
+                = new Bank(null, "Bank2", 123456789);
         bankRepository.save(bankFist);
         bankRepository.save(bankSecond);
         var result = bankRepository.getFirstByName("Bank1");
@@ -38,9 +38,9 @@ public class BankRepositoryTest {
     @Test
     public void BankRepository_getFirstByBikCode_ReturnsFirstByBikCode() {
         var bankFist
-                = new Bank(1L, "Bank1", 123456788, null);
+                = new Bank(1L, "Bank1", 123456788);
         var bankSecond
-                = new Bank(2L, "Bank2", 123456789, null);
+                = new Bank(2L, "Bank2", 123456789);
                 bankRepository.save(bankFist);
         bankRepository.save(bankFist);
         bankRepository.save(bankSecond);

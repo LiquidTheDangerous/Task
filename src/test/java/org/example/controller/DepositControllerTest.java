@@ -1,6 +1,10 @@
 package org.example.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.example.controller.body.ActionResultMessage;
+import org.example.controller.body.ApiBody;
+import org.example.controller.body.ErrorBody;
+import org.example.controller.util.HttpMethodToOperationMapperImpl;
 import org.example.domain.PlainDeposit;
 import org.example.exceptions.ResourceNotFoundException;
 import org.example.service.PlainDepositService;
@@ -31,6 +35,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class DepositControllerTest {
     @MockBean
     PlainDepositService plainDepositService;
+
+    @MockBean
+    HttpMethodToOperationMapperImpl httpMethodToOperationMapper;
 
     @Autowired
     ObjectMapper objectMapper;
@@ -96,7 +103,7 @@ public class DepositControllerTest {
         }).when(plainDepositService).getDepositById(any(Long.class));
 
         var response = mockMvc
-                .perform(get("/api/deposit/getById/{id}",1L));
+                .perform(get("/api/deposit/getById/{id}", 1L));
 
         response.andExpect(status().isNotFound())
                 .andExpect(content().json(

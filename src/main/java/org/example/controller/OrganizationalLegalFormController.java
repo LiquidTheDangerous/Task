@@ -1,5 +1,7 @@
 package org.example.controller;
 
+import org.example.controller.body.ActionResultMessage;
+import org.example.controller.body.ApiBody;
 import org.example.domain.OrganizationalLegalForm;
 import org.example.service.OrganizationalLegalFormService;
 import org.springframework.web.bind.annotation.GetMapping;

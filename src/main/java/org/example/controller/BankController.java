@@ -1,6 +1,8 @@
 package org.example.controller;
 
 
+import org.example.controller.body.ActionResultMessage;
+import org.example.controller.body.ApiBody;
 import org.example.domain.Bank;
 import org.example.domain.Deposit;
 import org.example.service.BankService;
@@ -81,7 +83,7 @@ public class BankController {
         return ResponseEntity.ok().body(new ActionResultMessage("delete", true));
     }
 
-    @PostMapping("create")
+    @PostMapping(value = "create")
     ResponseEntity<ApiBody<Bank>> create(@RequestBody Bank bank) {
         return ResponseEntity.ok().body(
                 ApiBody.<Bank>builder()

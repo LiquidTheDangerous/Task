@@ -18,8 +18,8 @@ public class ClientRepositoryTest {
 
     @Test
     public void ClientRepository_getFirstByName_ReturnsFirstByName() {
-        var clientFirst = new Client(null,"Client1", null,null,null);
-        var clientSecond = new Client(null,"Client2", null,null,null);
+        var clientFirst = new Client(null,"Client1", null,null);
+        var clientSecond = new Client(null,"Client2", null,null);
 
         clientRepository.save(clientFirst);
         clientRepository.save(clientSecond);

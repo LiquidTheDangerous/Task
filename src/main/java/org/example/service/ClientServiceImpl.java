@@ -35,23 +35,23 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public Iterable<Client> getAll(int pageNumber, int pageSize) {
-        return clientRepository.findAll(PageRequest.of(pageNumber,pageSize));
+        return clientRepository.findAll(PageRequest.of(pageNumber, pageSize));
     }
 
     @Override
     public Client getClientById(Long id) {
-        return clientRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("no such client id: " + id,"read"));
+        return clientRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("no such client id: " + id, "read"));
     }
 
     @Override
     public Client getClientByName(String name) {
-        return clientRepository.getFirstByName(name).orElseThrow(()->new ResourceNotFoundException("not such client with given name: " + name,"read"));
+        return clientRepository.getFirstByName(name).orElseThrow(() -> new ResourceNotFoundException("not such client with given name: " + name, "read"));
     }
 
     @Override
     public List<Deposit> getClientDepositByClientId(Long id) {
         if (!clientRepository.existsById(id)) {
-            throw new ResourceNotFoundException("no such client with given id: " + id,"read");
+            throw new ResourceNotFoundException("no such client with given id: " + id, "read");
         }
         return depositRepository.getAllByClientId(id);
     }
@@ -76,6 +76,14 @@ public class ClientServiceImpl implements ClientService {
             throw new ResourceNotFoundException("no user to update", "update");
         }
         clientRepository.save(client);
+    }
+
+    @Override
+    public void update(PlainClient plainClient) {
+        if (!plainClientRepository.existsById(plainClient.getId())) {
+            throw new ResourceNotFoundException("no user to update", "update");
+        }
+        plainClientRepository.save(plainClient);
     }
 
     @Override

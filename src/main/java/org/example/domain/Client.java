@@ -1,5 +1,6 @@
 package org.example.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -33,5 +34,6 @@ public class Client {
     private OrganizationalLegalForm organizationalLegalForm;
 
     @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
+    @JsonBackReference
     private List<Deposit> deposits;
 }

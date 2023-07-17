@@ -1,5 +1,6 @@
 package org.example.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -27,5 +28,6 @@ public class Bank {
     private Integer bikCode;
 
     @OneToMany(mappedBy = "bank",fetch = FetchType.EAGER)
+    @JsonBackReference
     private List<Deposit> deposits;
 }

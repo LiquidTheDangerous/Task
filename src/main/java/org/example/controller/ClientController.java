@@ -73,7 +73,7 @@ public class ClientController {
     }
 
     @PutMapping("update")
-    ResponseEntity<ActionResultMessage> update(@RequestBody Client client) {
+    ResponseEntity<ActionResultMessage> update(@RequestBody PlainClient client) {
         clientService.update(client);
         return ResponseEntity
                 .ok()

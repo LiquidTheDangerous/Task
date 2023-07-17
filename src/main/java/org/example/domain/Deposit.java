@@ -28,11 +28,11 @@ public class Deposit {
     @Column(name = "time_period", nullable = false)
     private Integer timePeriod;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "client_id", nullable = false)
     Client client;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "bank_id", nullable = false)
     Bank bank;
 }

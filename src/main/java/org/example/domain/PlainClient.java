@@ -6,9 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 import java.util.List;
-
 
 @Entity
 @Table(name="client", schema = "public")
@@ -16,10 +14,10 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 @Builder
-public class Client {
+public class PlainClient {
     @Id
     @Column(name="id",nullable = false)
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
 
     @Column(name="name", nullable = false, unique = true)
@@ -28,10 +26,7 @@ public class Client {
     @Column(name="shortname")
     private String shortname;
 
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="organizational_legal_form_id")
-    private OrganizationalLegalForm organizationalLegalForm;
 
-    @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
-    private List<Deposit> deposits;
+    @Column(name="organizational_legal_form_id")
+    private Long organizationalLegalForm;
 }

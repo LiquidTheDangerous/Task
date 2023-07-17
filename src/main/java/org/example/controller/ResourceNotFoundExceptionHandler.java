@@ -1,11 +1,13 @@
 package org.example.controller;
 
 import org.example.exceptions.ResourceNotFoundException;
+import org.hibernate.exception.ConstraintViolationException;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 @ControllerAdvice
@@ -22,4 +24,6 @@ public class ResourceNotFoundExceptionHandler extends ResponseEntityExceptionHan
                 ),
                 HttpStatus.NOT_FOUND);
     }
+
+
 }

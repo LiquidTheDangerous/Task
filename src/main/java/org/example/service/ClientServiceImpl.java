@@ -3,9 +3,11 @@ package org.example.service;
 import jakarta.transaction.Transactional;
 import org.example.domain.Client;
 import org.example.domain.Deposit;
+import org.example.domain.PlainClient;
 import org.example.exceptions.ResourceNotFoundException;
 import org.example.repository.ClientRepository;
 import org.example.repository.DepositRepository;
+import org.example.repository.PlainClientRepository;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
@@ -15,11 +17,14 @@ import java.util.List;
 public class ClientServiceImpl implements ClientService {
 
     private final ClientRepository clientRepository;
+
+    private final PlainClientRepository plainClientRepository;
     private final DepositRepository depositRepository;
 
 
-    public ClientServiceImpl(ClientRepository userRepository, DepositRepository depositRepository) {
+    public ClientServiceImpl(ClientRepository userRepository, PlainClientRepository plainClientRepository, DepositRepository depositRepository) {
         this.clientRepository = userRepository;
+        this.plainClientRepository = plainClientRepository;
         this.depositRepository = depositRepository;
     }
 
@@ -56,6 +61,12 @@ public class ClientServiceImpl implements ClientService {
     public Client save(Client client) {
         client.setId(null);
         return clientRepository.save(client);
+    }
+
+    @Override
+    public PlainClient save(PlainClient client) {
+        client.setId(null);
+        return plainClientRepository.save(client);
     }
 
     @Override

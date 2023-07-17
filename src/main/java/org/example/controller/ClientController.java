@@ -2,6 +2,7 @@ package org.example.controller;
 
 import org.example.domain.Client;
 import org.example.domain.Deposit;
+import org.example.domain.PlainClient;
 import org.example.service.ClientService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,11 +21,12 @@ public class ClientController {
     @GetMapping("getAll")
     ResponseEntity<ApiBody<Iterable<Client>>> getAll(@RequestParam(name = "pageNumber", defaultValue = "0", required = false) Integer pageNumber,
                                                      @RequestParam(name = "pageSize", defaultValue = "25", required = false) Integer pageSize) {
+        var clients = clientService.getAll(pageNumber,pageSize);
         return ResponseEntity
                 .ok()
                 .body(
                         ApiBody.<Iterable<Client>>builder()
-                                .body(clientService.getAll(pageNumber, pageSize))
+                                .body(clients)
                                 .actionResult(new ActionResultMessage("read", true))
                                 .build()
                 );
@@ -61,9 +63,9 @@ public class ClientController {
     }
 
     @PostMapping("create")
-    ResponseEntity<ApiBody<Client>> create(@RequestBody Client client) {
+    ResponseEntity<ApiBody<PlainClient>> create(@RequestBody PlainClient client) {
         return ResponseEntity.ok().body(
-                ApiBody.<Client>builder()
+                ApiBody.<PlainClient>builder()
                         .body(clientService.save(client))
                         .actionResult(new ActionResultMessage("create", true))
                         .build()

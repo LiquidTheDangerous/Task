@@ -26,6 +26,6 @@ public class Bank {
     @Column(name="bik_code", nullable = false, unique = true)
     private Integer bikCode;
 
-    @OneToMany(mappedBy = "bank",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "bank",fetch = FetchType.EAGER)
     private List<Deposit> deposits;
 }

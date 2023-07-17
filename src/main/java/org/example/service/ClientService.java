@@ -2,6 +2,7 @@ package org.example.service;
 
 import org.example.domain.Client;
 import org.example.domain.Deposit;
+import org.example.domain.PlainClient;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,6 +20,8 @@ public interface ClientService {
     List<Deposit> getClientDepositByClientId(Long id);
 
     Client save(Client client);
+
+    PlainClient save (PlainClient client);
 
     void update(Client client);
 
